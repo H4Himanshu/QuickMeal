@@ -1,0 +1,40 @@
+{% extends "checkout/checkout.html" %}
+{% load i18n %}
+{% load debug_tags %}
+
+{% block title %}
+    {% trans "Payment details" %} | {{ block.super }}
+{% endblock %}
+
+{% block checkout_nav %}
+    {% include 'checkout/nav.html' with step=3 %}
+{% endblock %}
+
+{% block checkout_title %}{% trans "Enter payment details" %}{% endblock %}
+
+{% block order_contents %}{% endblock %}
+{% block shipping_address %}{% endblock %}
+{% block shipping_method %}{% endblock %}
+{% block payment_method %}{% endblock %}
+
+{% block payment_details %}
+    {% block payment_details_content %}
+        <form method="POST" action={% url 'razorpay-place-order' basket.id %}>
+        {% csrf_token %}
+        <!-- Note that the amount is in paise = 50 INR -->
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key= {{ RAZORPAY_KEY_ID }}
+            data-amount= {{ order_total_paise }}
+            data-buttontext="Razorpay"
+            data-name="Meghahaat"
+            data-description="the mega store!"
+            data-image="http://meghahaat.com/static/markatix/images/logo/logo-2.png"
+            data-prefill.name= {{ shipping_address.first_name }}
+            data-prefill.email= {{ user.email }}
+            data-theme.color="#0E8227"
+        ></script>
+        <input type="hidden" value="Hidden Element" name="hidden">
+        </form>
+    {% endblock payment_details_content %}
+{% endblock payment_details %}

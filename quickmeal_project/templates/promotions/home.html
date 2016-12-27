@@ -1,0 +1,762 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+{% load debug_tags %}
+{% load staticfiles %}
+
+{% block navigation %}
+    {% include "partials/nav_primary.html" with expand_dropdown=1 %}
+{% endblock %}
+
+{% block extrascripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$('#bonus').change(function() {
+    var city_id = $(this).find(':selected').val();
+    $.ajax({
+        type: 'GET',
+        url: '/',
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        data: {'city_id': city_id},
+        success: function(data){
+                    console.log(data);
+                }
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block header %}
+{#<!-- Trigger the modal with a button -->#}
+{#<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>#}
+{##}
+{#<!-- Modal -->#}
+{#<div id="myModal" class="modal fade" role="dialog">#}
+{#  <div class="modal-dialog">#}
+{##}
+{#    <!-- Modal content-->#}
+{#    <div class="modal-content">#}
+{#      <div class="modal-header">#}
+{#        <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+{#        <h4 class="modal-title">Modal Header</h4>#}
+{#      </div>#}
+{#      <div class="modal-body">#}
+{#		<select id="bonus">#}
+{#			{% for city in location_cities %}#}
+{#				<option value={{city.id}}>{{ city.city }}</option>#}
+{#			{% endfor %}	#}
+{#		</select>#}
+{#		<select>		#}
+{#			{% for location in city_wise_location.city_id %}#}
+{#				<option href="#">{{ location.location }}</option>#}
+{#			{% endfor %}		#}
+{#		</select>#}
+{#      </div>#}
+{#      <div class="modal-footer">#}
+{#        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#  </div>#}
+{#</div>#}
+{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+     <div id="wrapper" class="row-offcanvas row-offcanvas-left">
+            <div class="main-wrapper">
+
+               <!-- Sharing image on social like facebook and twitter -->
+               <main role="main" class="home-page">
+                  <section id="main-slider">
+                     <ul class="bxslider banners-container">
+                        <li id="banner-1">
+                           <a class="default-cusror" href="javascript:void(0)" target="_self">
+                           <img alt="Thursday  24 Nov" data-src="{% static "/markatix/images/mobile/thursday.jpg"%}" data-srctablet="{% static "markatix/tablet/thursday.jpg"%}" src="{% static "markatix/images/Thursday_24th-Nov_1940x300.jpg"%}" />
+                           </a>        <script></script>
+                        </li>
+                        <li id="banner-2">
+                           <a class="default-cusror" href="javascript:void(0)" target="_self">
+                           <img alt="raw pressery 30/- off" data-src="{% static "/markatix/images/mobile/raw.jpg"%}" data-srctablet="{% static "markatix/tablet/raw.jpg"%}" src="{% static "markatix/images/raw-pressery_offer-30-off.jpg"%}" />
+                           </a>        <script></script>
+                        </li>
+                        <li id="banner-3">
+                           <a class="default-cusror" href="javascript:void(0)" target="_self">
+                           <img alt="Winteriscoming" data-src="{% static "/markatix/images/mobile/winter.jpg"%}" data-srctablet="{% static "/markatix/images/tablet/winter.jpg" %}" src="{% static "markatix/images/winter_1940x300.jpg" %}" />
+                           </a>        <script></script>
+                        </li>
+                        <!-- <li id="banner-4">
+                           <a class="default-cusror" href="javascript:void(0)" target="_self">
+                             <img alt="New User Banner - 12th July" data-src="images/mobile/New.jpg" data-srctablet="img/tablet/new.jpg" src="images/New-User-Coupon_1940X300.jpg" />
+                           </a>        <script>
+                           </script> -->
+                        </li>
+                     </ul>
+                     <script type="text/javascript">
+                        $('#main-slider .banners-container').bxSlider({
+                          pager: false,
+                          nextText: '',
+                          prevText: '',
+                          mode: 'fade',
+                          auto: true,
+                          speed: 500,
+                          pause: 10000
+                        });
+                        fullWidthSlider();
+                     </script>
+                     <!-- popup contents -->
+                     <!-- banner promotional offer pop up -->
+                     <div class="modal fade tc banner-popup-holder" id="promotional_offer_modal" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                           <a href="javascript:void(0)" class="close" data-dismiss="modal">close</a>
+                           <div class="popup-holder banner-popup">
+                              <header>
+                                 <h2 class="text-center">SHARE &amp; EARN</h2>
+                              </header>
+                              <div class="holder">
+                                 <img src="{% static "markatix/images/share-earn.jpg"%}" alt="Banner">
+                                 <p>Get <strong>upto 3 colleagues </strong> to order for the <strong>same date, time slot and address </strong> as yours and earn upto 20% cashback each.</p>
+                                 <h2 class="no-line text-left">TERMS &amp; CONDITIONS</h2>
+                                 <ol class="text-left">
+                                    <li>Valid on Holachef.com (website and mobile site)</li>
+                                    <li>Invite your friends to order with you through a shareable link that shall appear upon completion of your order</li>
+                                    <li>Offer not valid on Flavours section</li>
+                                    <li>All cashback will be credited as Brownie Points in user’s Holachef account</li>
+                                    <li>All T&amp;C of Brownie Points apply</li>
+                                    <li>Cashback will be credited to user’s Holachef account within 24 hrs of order completion</li>
+                                    <li>Offer valid in Mumbai and Pune</li>
+                                 </ol>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- banner promotional offer pop up -->
+                  </section>
+                  <section class="main-filter-holder">
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-lg-12">
+                              <ul class="main-filter">
+                                 <li class="pick-loaction">
+                                    <a href="#" data-toggle="modal" class="changeLocation">
+                                    <i class="icon icon-location"></i>
+                                    <span class="pincode-name">Sector-18 Noida</span>
+                                    <span class="pincode">201301</span>
+                                    </a>
+                                 </li>
+                                 <li class="date-view">
+                                    <span class="date-holder" data-toggle="dropdown">
+                                    <span class="menu-day">Today </span>
+                                    <span class="menu-date"> Dec 15</span>
+                                    <i class="icon icon-down"></i>
+                                    </span>
+                                    <div class="dropdown-menu date-select daily-menus-drop-down">
+                                       <ul>
+                                          <li class="active">
+                                             <a class="today mnu_date" data-date="2016-12-15" href="#"><time><span class='menu-day'>Today</span></time><span class='menu-date'>Dec 15</span></a>
+                                          </li>
+                                          <li class="">
+                                             <a class=" mnu_date" data-date="2016-12-16" href="#"><time><span class='menu-day'>Fri</span></time><span class='menu-date'>Dec 16</span></a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                                 <li class="meal-type-all-day-menu tab-menu active">
+                                    <a href="#all-day-menu" role="tab" data-toggle="tab" data-meal-type-id="8" data-href="/daily-menus/by_meal_type">
+                                    <span>BREAKFAST</span>
+                                    <time>
+                                    09:00 AM - 12:00 PM
+                                    </time>
+                                    </a>
+                                 </li>
+                                 <li class="meal-type-flavours tab-menu ">
+                                    <a href="#flavours" role="tab" data-toggle="tab" data-meal-type-id="6" data-href="/daily-menus/by_meal_type">
+                                    <span>LUNCH</span>
+                                    <time>
+                                    01:00 PM - 05:00 PM
+                                    </time>
+                                    </a>
+                                 </li>
+                                 <li class="meal-type-cakes-indian-sweets tab-menu ">
+                                    <a href="#cakes_indian_sweets" role="tab" data-toggle="tab" data-meal-type-id="9" data-href="/daily-menus/by_meal_type">
+                                    <span>DINNER</span>
+                                    <time>
+                                    07:00 PM - 10:00 PM
+                                    </time>
+                                    </a>
+                                 </li>
+                                 <li class="menu-filter">
+                                    <a href="#" data-toggle="dropdown">
+                                    <span class="filter-store-items filter-txt">FILTER</span> (<span class="filter-count">0</span>)
+                                    </a>
+                                    <div class="dropdown-menu daily-menus-drop-down">
+                                       <div class="lunch-dinner-filter filter-box">
+                                          <a href="javascript:void(0)" class="reset">Reset</a>
+                                          <div class="option-holder">
+                                             <div class="col-md-6" id="meal-filter">
+                                                <div class="row">
+                                                   <div class="col-md-12 type-food">
+                                                      <div class="row">
+                                                         <h2>Meals</h2>
+                                                         <div class="checkbox">
+                                                            <input type="checkbox" name="food-type" id="veg" data-food_type="veg">
+                                                            <label for="veg">
+                                                            <i class="veg_inactive"><img alt="inactive" src="{% static "markatix/images/veg_unselected_28.png" %}"></i>
+                                                            <i class="veg_active hidden"><img alt="active" src="{% static "markatix/images/veg_selected_28.png" %}"></i>
+                                                            <span>Veg</span>
+                                                            </label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input type="checkbox" name="food-type" id="non-veg" data-food_type="non-veg">
+                                                            <label for="non-veg">
+                                                            <i class="non-veg_inactive"><img alt="inactive" src="{% static "markatix/images/nonveg_unselected__28.png"%}></i>
+                                                            <i class="non-veg_active hidden"><img alt="active" src="{% static "markatix/images/nonveg_selected_28.png"%}></i>
+                                                            <span>Non Veg</span>
+                                                            </label>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-md-12 cuisine  ">
+                                                      <div class="row">
+                                                         <h2></h2>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-md-12 kind-dish">
+                                                      <div class="row">
+                                                         <h2>Meals for You</h2>
+                                                         <div class="checkbox hide">
+                                                            <input data-course=" Cooked in Fortune Vivo diabetic oil care" data-display="Fortune Diabetes-Care Oil" id=" Cooked in Fortune Vivo diabetic oil care_web" name="kind-of-dish" type="checkbox" value="" disabled="disabled">
+                                                            <label for=" Cooked in Fortune Vivo diabetic oil care_web">Fortune Diabetes-Care Oil</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-course="Regional - Rest of the World" data-display="Global Fare" id="Regional - Rest of the World_web" name="kind-of-dish" type="checkbox" value="">
+                                                            <label for="Regional - Rest of the World_web">Global Fare</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-course="Regional - Indian" data-display="Indian Spread" id="Regional - Indian_web" name="kind-of-dish" type="checkbox" value="">
+                                                            <label for="Regional - Indian_web">Indian Spread</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-course="À La Carte – Make Your Own Meal" data-display="À La Carte – Make Your Own Meal" id="À La Carte – Make Your Own Meal_web" name="kind-of-dish" type="checkbox" value="">
+                                                            <label for="À La Carte – Make Your Own Meal_web">À La Carte – Make Your Own Meal</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-course="Saffola Fit Foodie" data-display="Saffola Fit Foodie" id="Saffola Fit Foodie_web" name="kind-of-dish" type="checkbox" value="" disabled="disabled">
+                                                            <label for="Saffola Fit Foodie_web">Saffola Fit Foodie</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-course="Desserts" data-display="Desserts" id="Desserts_web" name="kind-of-dish" type="checkbox" value="">
+                                                            <label for="Desserts_web">Desserts</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-course="Soups and Salads" data-display="Soups &amp; Salads" id="Soups and Salads_web" name="kind-of-dish" type="checkbox" value="">
+                                                            <label for="Soups and Salads_web">Soups &amp; Salads</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-course="Drinks" data-display="Beverages" id="Drinks_web" name="kind-of-dish" type="checkbox" value="">
+                                                            <label for="Drinks_web">Beverages</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-course="Ice Creams" data-display="Ice Creams " id="Ice Creams_web" name="kind-of-dish" type="checkbox" value="" disabled="disabled">
+                                                            <label for="Ice Creams_web">Ice Creams </label>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <div class="row">
+                                                   <div class="col-md-12 flavours-filters">
+                                                      <div class="row">
+                                                         <h2>Packaged snacks</h2>
+                                                         <div class="checkbox">
+                                                            <input data-category-id="11" id="flavour_filter_11_web" name="flavour_filter" type="checkbox" value="">
+                                                            <label for="flavour_filter_11_web">Deals of the week</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-category-id="3" id="flavour_filter_3_web" name="flavour_filter" type="checkbox" value="">
+                                                            <label for="flavour_filter_3_web">Packaged drinks</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-category-id="9" id="flavour_filter_9_web" name="flavour_filter" type="checkbox" value="" disabled="disabled">
+                                                            <label for="flavour_filter_9_web">Indian Sweets</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-category-id="8" id="flavour_filter_8_web" name="flavour_filter" type="checkbox" value="" disabled="disabled">
+                                                            <label for="flavour_filter_8_web">Cakes</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-category-id="1" id="flavour_filter_1_web" name="flavour_filter" type="checkbox" value="" disabled="disabled">
+                                                            <label for="flavour_filter_1_web">Snacks</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-category-id="2" id="flavour_filter_2_web" name="flavour_filter" type="checkbox" value="" disabled="disabled">
+                                                            <label for="flavour_filter_2_web">Condiments, dips &amp; spreads</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-category-id="7" id="flavour_filter_7_web" name="flavour_filter" type="checkbox" value="">
+                                                            <label for="flavour_filter_7_web">Ice Creams, Yogurts</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-category-id="6" id="flavour_filter_6_web" name="flavour_filter" type="checkbox" value="" disabled="disabled">
+                                                            <label for="flavour_filter_6_web">Dairy</label>
+                                                         </div>
+                                                         <div class="checkbox">
+                                                            <input data-category-id="4" id="flavour_filter_4_web" name="flavour_filter" type="checkbox" value="">
+                                                            <label for="flavour_filter_4_web">Health Food</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-category-id="5" id="flavour_filter_5_web" name="flavour_filter" type="checkbox" value="" disabled="disabled">
+                                                            <label for="flavour_filter_5_web">Confectionery</label>
+                                                         </div>
+                                                         <div class="checkbox hide">
+                                                            <input data-category-id="10" id="flavour_filter_10_web" name="flavour_filter" type="checkbox" value="" disabled="disabled">
+                                                            <label for="flavour_filter_10_web">Diwali Hamper</label>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <span class="back filter-back">Close</span>
+                                          <script>
+                                             $(function(){
+                                               $(".filter-back").click(function(){
+                                             	$(".main-filter li.menu-filter.open").click()
+                                               });
+                                             })
+                                          </script>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li class="filter-cart">
+                                    <a href="/cart"><i class="icon icon-cart"><span>0</span></i></a>
+                                 </li>
+                              </ul>
+                              <div id="notify-msg"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <section class="dish-menu-holder">
+                     <div class="container">
+                        <div class="row">
+                           <script type="text/javascript">
+                              $('.bg-primary').show().delay(5000).fadeOut('slow');
+                              $(".bg-primary .close").on("click", function(){
+                                $(this).parent().fadeOut(100, function() {
+                               $(this).remove();
+                              });
+                              })
+                           </script>
+                           <div class="visible-sm mm-filter modal-popup" data-toggle="modal" data-target="#filter-box-popup">
+                              FILTER (<span class="filter-count">0</span>)
+                           </div>
+                           <div class="meal-type-tabs col-lg-12 tab-content dish-menu">
+                              <div class="filter-list">
+                                 <div class="filter-list-holder">
+                                    <span id='filter_show_label'>SHOWING:-</span>
+                                    <span id='food_type_list' class="filter-holder"></span>
+                                    <span id='cuisine_list' class="filter-holder"></span>
+                                    <span id='course_list' class="filter-holder"></span>
+                                    <span id='category_list' class="filter-holder"></span>
+                                 </div>
+                                 <a href="#" class="filter-reset">RESET</a>
+                              </div>
+                              <div class="tab-pane fade in active" id="all-day-menu" role="tabpanel">
+                                 <div class='filter' data-available-course="[&quot;Condiments&quot;, &quot;Cooked in Fortune Vivo diabetic oil care&quot;, &quot;Regional - Indian&quot;, &quot;Regional - Rest of the World&quot;, &quot;À La Carte – Make Your Own Meal&quot;, &quot;Soups and Salads&quot;, &quot;Desserts&quot;, &quot;Drinks&quot;]" data-available-category-ids="[3, 4, 3, 3, 7, 3, 11, 11, 3, 11, 11]" data-available-cuisine-type-group-ids="[1, 2]"></div>
+                                 <div class="dish-item">
+                                    <div class="item-not-found-wrpr">
+                                       <div class="col-md-12 no-result text-center item-not-found hide">
+                                          <i><img src="images/no-result.svg" alt="No result Found"></i>
+                                          <strong>Oops!</strong>
+                                          <p>Psst! Nothing to display. Choose some other filter(s)</p>
+                                       </div>
+                                    </div>
+                                    <!-- <h2 class="col-md-12 course-heading our-recommed" data-food-type="[&quot;non-veg&quot;]">
+                                       TODAY&#39;S SPECIAL
+                                       </h2> -->
+                                    <h2 class="col-md-12 course-heading" data-food-type="[&quot;non-veg&quot;, &quot;veg&quot;]">
+                                       Breakfast
+                                    </h2>
+                                    <div class="col-md-4  store-item" id="store_item_3809170" data-food-type="non-veg" data-course="Cooked in Fortune Vivo diabetic oil care" data-date="2016-12-15" data-same-group-locality="[1, 5, 7, 8, 9, 25]" data-food-category-ids="[]" data-meal-type-id="8" data-cuisine-type-group-ids = "[1]">
+                                       <div class="dish-img">
+                                          <!-- <a href="#" class="saffola-link"><img src="/assets/image_saffola.png"></a> -->
+                                          <div class="dish-image-anchor">
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" class="modal-popup" data-link="/store_items/3809170?daily_menu_page=true">
+                                             <label class='dish-label'><span>Fortune Basmati Rice</span></label>
+                                             <span class="dish-addToCart"></span>
+                                             <span class="dish-rating"><i class="icon icon-star"></i>4.5</span>
+                                             <img alt="Goan prawns curry with steamed rice" class="food-item-placeholder-image-url" src="{% static "markatix/images/Goan_Prawns_Curry_with_Steamed_Rice.jpg"%}" />
+                                             </a>
+                                          </div>
+                                          <i class="icon icon-non-veg">
+                                          <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                          </i>
+                                       </div>
+                                       <div class="dish-description">
+                                          <p>
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" data-link="/store_items/3809170?daily_menu_page=true" title="Chicken Curry With Rice">Chicken Curry With Rice</a>
+                                          </p>
+                                          <span class="dish-tag">
+                                          <span class='dish-taste-content'>Mildly spiced</span>
+                                          </span>
+                                          <div class="dish-price">
+                                             <!-- getting dish price html -->
+                                             <span class='pull-left'>
+                                                <span class='act_price'>
+                                                   <!-- <i class='icon icon-rupee act_price'></i> -->&#8377 361
+                                                </span>
+                                                <span class='vat_plus'></span>
+                                             </span>
+                                             <div class="dish-add-remove">
+                                                <button class="btn btn-default btn-white rmv-btn" data-available-quantity="8" data-chef-name="Chef Sandeep Harmalkar" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[1]" data-dish-name="Goan Prawns Curry with Steamed Rice" data-flavour-id="6" data-food-type="non-veg" data-item-id="3809170" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="6" data-prebook-order-date="2016-12-15" data-price="361.0" data-rating="4.15385" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">-</button>
+                                                <span class="addet_item_cart"></span>
+                                                <button class="btn btn-default btn-orange add-btn menu-item" data-available-quantity="8" data-chef-name="Chef Sandeep Harmalkar" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[1]" data-dish-name="Goan Prawns Curry with Steamed Rice" data-flavour-id="6" data-food-type="non-veg" data-item-id="3809170" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="6" data-prebook-order-date="2016-12-15" data-price="361.0" data-rating="4.15385" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">+&nbsp;&nbsp;Add</button>
+                                             </div>
+                                          </div>
+                                          <div class="dish-chef">
+                                             <div class="dish-chef-img">
+                                                <!-- <a href="#">
+                                                   <!--% if menu_item.second_chef %-->
+                                                <!-- <a href="/chefs/chef-sandeep-harmalkar"><img alt="Sandeep harmalkar 144x144" class="lazy" src="images/Sandeep-Harmalkar_144X144.jpg" /></a>
+                                                   </a> -->
+                                             </div>
+                                             <div class="dish-chef-detail">
+                                                <!--  <span class="chef-name"><a class="chefNameLink" href="#">Chef Sandeep Harmalkar</a></span>
+                                                   <span class="chef-tag">Hola MasterChef</span> -->
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4  store-item" id="store_item_3809206" data-food-type="non-veg" data-course="Cooked in Fortune Vivo diabetic oil care" data-date="2016-12-15" data-same-group-locality="[1, 5, 7, 8, 9, 25]" data-food-category-ids="[]" data-meal-type-id="8" data-cuisine-type-group-ids = "[]">
+                                       <div class="dish-img">
+                                          <!-- <a href="#" class="saffola-link"><img src="/assets/image_saffola.png"></a> -->
+                                          <div class="dish-image-anchor">
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" class="modal-popup" data-link="/store_items/3809206?daily_menu_page=true">
+                                             <label class='dish-label'><span>Made in Fortune Vivo Diabetes Care Oil</span></label>
+                                             <span class="dish-addToCart"></span>
+                                             <span class="dish-rating"><i class="icon icon-star"></i>4.4</span>
+                                             <img alt="Murgh adraki %281%29" class="food-item-placeholder-image-url" src="{% static "markatix/images/Murgh-Adraki-(1).jpg"%}" />
+                                             </a>
+                                          </div>
+                                          <i class="icon icon-non-veg">
+                                          <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                          </i>
+                                       </div>
+                                       <div class="dish-description">
+                                          <p>
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" data-link="/store_items/3809206?daily_menu_page=true" title="Shahi Paneer">Shahi Paneer</a>
+                                          </p>
+                                          <span class="dish-tag">
+                                          <span class='dish-taste-content'>Mildly spiced</span><span class='dish-taste-content'>Gingery</span>
+                                          </span>
+                                          <div class="dish-price">
+                                             <!-- getting dish price html -->
+                                             <span class='pull-left'>
+                                                <span class='act_price'>
+                                                   <!-- <i class='icon icon-rupee act_price'></i> -->&#8377 186
+                                                </span>
+                                                <span class='vat_plus'></span>
+                                             </span>
+                                             <div class="dish-add-remove">
+                                                <button class="btn btn-default btn-white rmv-btn" data-available-quantity="3" data-chef-name="Chef Kailash Sawant" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Murgh Adraki" data-flavour-id="6" data-food-type="non-veg" data-item-id="3809206" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="1" data-prebook-order-date="2016-12-15" data-price="186.0" data-rating="4.05882" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">-</button>
+                                                <span class="addet_item_cart"></span>
+                                                <button class="btn btn-default btn-orange add-btn menu-item" data-available-quantity="3" data-chef-name="Chef Kailash Sawant" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Murgh Adraki" data-flavour-id="6" data-food-type="non-veg" data-item-id="3809206" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="1" data-prebook-order-date="2016-12-15" data-price="186.0" data-rating="4.05882" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">+&nbsp;&nbsp;Add</button>
+                                             </div>
+                                          </div>
+                                          <div class="dish-chef">
+                                             <div class="dish-chef-img">
+                                                <!--  <a href="#">
+                                                   -->   <!--% if menu_item.second_chef %-->
+                                                <!--      <a href="#"><img alt="1 %2811%29" class="lazy" src="images/1_(11).jpg" /></a>
+                                                   </a> -->
+                                             </div>
+                                             <!-- <div class="dish-chef-detail">
+                                                <span class="chef-name"><a class="chefNameLink" href="#">Chef Kailash Sawant</a></span>
+                                                  <span class="chef-tag">Hola MasterChef</span>
+                                                </div> -->
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4  store-item" id="store_item_3839496" data-food-type="veg" data-course="Cooked in Fortune Vivo diabetic oil care" data-date="2016-12-15" data-same-group-locality="[1, 5, 7, 8, 9, 25]" data-food-category-ids="[]" data-meal-type-id="8" data-cuisine-type-group-ids = "[]">
+                                       <div class="dish-img">
+                                          <!-- <a href="#" class="saffola-link"><img src="/assets/image_saffola.png"></a> -->
+                                          <div class="dish-image-anchor">
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" class="modal-popup" data-link="/store_items/3839496?daily_menu_page=true">
+                                             <label class='dish-label'><span>Made in Fortune Vivo Diabetes Care Oil</span></label>
+                                             <span class="dish-addToCart"></span>
+                                             <span class="dish-rating"><i class="icon icon-star"></i>4.7</span>
+                                             <img alt="Veg makhni" class="food-item-placeholder-image-url" src="{%static "markatix/images/Veg-Makhni.jpg" %}"/>
+                                             </a>
+                                          </div>
+                                          <i class="icon icon-veg">
+                                          <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                          </i>
+                                       </div>
+                                       <div class="dish-description">
+                                          <p>
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" data-link="/store_items/3839496?daily_menu_page=true" title="Veg Makhni">Veg Makhni</a>
+                                          </p>
+                                          <span class="dish-tag">
+                                          <span class='dish-taste-content'>Mildly spiced</span><span class='dish-taste-content'>Sweet</span>
+                                          </span>
+                                          <div class="dish-price">
+                                             <!-- getting dish price html -->
+                                             <span class='pull-left'>
+                                                <span class='act_price'>
+                                                   <!-- <i class='icon icon-rupee act_price'></i> -->&#8377 100
+                                                </span>
+                                                <span class='vat_plus'></span>
+                                             </span>
+                                             <div class="dish-add-remove">
+                                                <button class="btn btn-default btn-white rmv-btn" data-available-quantity="5" data-chef-name="Chef Ajit Dalvi" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Veg Makhni" data-flavour-id="6" data-food-type="veg" data-item-id="3839496" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="4" data-prebook-order-date="2016-12-15" data-price="100.0" data-rating="4.66667" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">-</button>
+                                                <span class="addet_item_cart"></span>
+                                                <button class="btn btn-default btn-orange add-btn menu-item" data-available-quantity="5" data-chef-name="Chef Ajit Dalvi" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Veg Makhni" data-flavour-id="6" data-food-type="veg" data-item-id="3839496" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="4" data-prebook-order-date="2016-12-15" data-price="100.0" data-rating="4.66667" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">+&nbsp;&nbsp;Add</button>
+                                             </div>
+                                          </div>
+                                          <div class="dish-chef">
+                                             <div class="dish-chef-img">
+                                                <!-- <a href="#">
+                                                   -->  <!--% if menu_item.second_chef %-->
+                                                <!--     <a href="/chefs/chef-ajit"><img alt="Chef ajit" class="lazy" src="images/Chef_Ajit.jpg"
+                                                   /></a>
+                                                   </a> -->
+                                             </div>
+                                             <div class="dish-chef-detail">
+                                                <!-- <span class="chef-name"><a class="chefNameLink" href="#">Chef Ajit Dalvi</a></span>
+                                                   <span class="chef-tag">Hola MasterChef</span> -->
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4  store-item" id="store_item_3839497" data-food-type="veg" data-course="Cooked in Fortune Vivo diabetic oil care" data-date="2016-12-15" data-same-group-locality="[1, 5, 7, 8, 9, 25]" data-food-category-ids="[]" data-meal-type-id="8" data-cuisine-type-group-ids = "[]">
+                                       <div class="dish-img">
+                                          <!-- <a href="#" class="saffola-link"><img src="/assets/image_saffola.png"></a> -->
+                                          <div class="dish-image-anchor">
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" class="modal-popup" data-link="/store_items/3839497?daily_menu_page=true">
+                                             <label class='dish-label'><span>Made in Fortune Vivo Diabetes Care Oil</span></label>
+                                             <span class="dish-addToCart"></span>
+                                             <span class="dish-rating"><i class="icon icon-star"></i>5.0</span>
+                                             <img alt="Beans coconut %282%29" class="food-item-placeholder-image-url" src="{% static "markatix/images/Beans-Coconut-(2).jpg" %}" />
+                                             </a>
+                                          </div>
+                                          <i class="icon icon-veg">
+                                          <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                          </i>
+                                       </div>
+                                       <div class="dish-description">
+                                          <p>
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" data-link="/store_items/3839497?daily_menu_page=true" title="Beans Coconut">Beans Coconut</a>
+                                          </p>
+                                          <span class="dish-tag">
+                                          <span class='dish-taste-content'>Mildly spiced</span>
+                                          </span>
+                                          <div class="dish-price">
+                                             <!-- getting dish price html -->
+                                             <span class='pull-left'>
+                                                <span class='act_price'>
+                                                   <!-- <i class='icon icon-rupee act_price'></i> -->&#8377 100
+                                                </span>
+                                                <span class='vat_plus'></span>
+                                             </span>
+                                             <div class="dish-add-remove">
+                                                <button class="btn btn-default btn-white rmv-btn" data-available-quantity="3" data-chef-name="Chef Kailash Sawant" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Beans Coconut" data-flavour-id="6" data-food-type="veg" data-item-id="3839497" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="3" data-prebook-order-date="2016-12-15" data-price="100.0" data-rating="5.0" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">-</button>
+                                                <span class="addet_item_cart"></span>
+                                                <button class="btn btn-default btn-orange add-btn menu-item" data-available-quantity="3" data-chef-name="Chef Kailash Sawant" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Beans Coconut" data-flavour-id="6" data-food-type="veg" data-item-id="3839497" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="3" data-prebook-order-date="2016-12-15" data-price="100.0" data-rating="5.0" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">+&nbsp;&nbsp;Add</button>
+                                             </div>
+                                          </div>
+                                          <div class="dish-chef">
+                                             <div class="dish-chef-img">
+                                                <!-- <a href="#"> -->
+                                                <!--% if menu_item.second_chef %-->
+                                                <!-- <a href="#"><img alt="1 %2811%29" class="lazy" src="images/Chef.jpg" /></a>
+                                                   </a> -->
+                                             </div>
+                                             <div class="dish-chef-detail">
+                                                <!-- <span class="chef-name"><a class="chefNameLink" href="#">Chef Kailash Sawant</a></span>
+                                                   <span class="chef-tag">Hola MasterChef</span> -->
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                       $(document).ready(function(){
+                                         $("#choose_menu_date_8_5").datepicker({        startDate: "2016-12-15",
+                                           endDate: "2016-12-15",
+                                           ignoreReadonly: true,
+                                           autoclose: true
+                                         });
+                                       });
+                                    </script>
+                                    <div class="col-md-4 store-item tile-item" id="store_item_8_5" data-date="2016-12-15" data-orderable-from-date="2016-12-15" data-orderable-to-date="2016-12-15" data-meal-type-id="8" data-same-group-locality="[1, 5, 7, 8, 9, 25]" data-cuisine-type-group-ids="multiple" data-food-category-ids="[]" data-food-type="multiple" data-course="multiple">
+                                       <div class="dish-img other-meals">
+                                          <a href="/daily-menus?meal=All-Day-Menu&amp;menu_date=2016-12-15">
+                                          <img alt="Bulk offer promotional tile" class="food-item-placeholder-image-url other-meals" src="{% static "/markatix/images/Bulk-offer-promotional-tile.jpg" %}" />
+                                          </a>
+                                       </div>
+                                    </div>
+                                    <!-- Tile Item Model  -->
+                                    <div class="modal small-popup tile-item-modal" id="tileItemModal-8-5" tabindex="-1">
+                                       <div class="modal-dialog" role="document">
+                                          <a href="javascript:void(0)" class="close" data-dismiss="modal">close</a>
+                                          <div class="popup-holder no-title">
+                                             <header>
+                                                <h2 class="text-center">Select a Date</h2>
+                                             </header>
+                                             <div class="holder">
+                                                <p>
+                                                <div class="calendar-container">
+                                                   <div class="form-group">
+                                                      <div class="input-group">
+                                                         <input id="choose_menu_date_8_5" type="text" style="background-color: #fff;" placeholder="Please select a date" class="form-control date-input date choose_menu_date" data-orderable-from-date="2016-12-15" data-orderable-to-date="2016-12-15" readonly/>
+                                                         <span class="input-group-addon">
+                                                         <img src="{% static "markatix/images/calendar-icon.png"%}" alt="calendar" class="calendar-icon">
+                                                         </span>
+                                                      </div>
+                                                   </div>
+                                                   <div class="select-date-error"></div>
+                                                   <div class="show-menu-container">
+                                                      <a class="btn btn-default btn-red show_menu_item_by_date" data-meal="All-Day-Menu" href="javascript: void(0)">Show Menu</a>
+                                                   </div>
+                                                </div>
+                                                </p>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <!-- Reject rendered tile item -->
+                                    <div class="col-md-4  store-item" id="store_item_3809194" data-food-type="veg" data-course="Cooked in Fortune Vivo diabetic oil care" data-date="2016-12-15" data-same-group-locality="[1, 5, 7, 8, 9, 25]" data-food-category-ids="[]" data-meal-type-id="8" data-cuisine-type-group-ids = "[]">
+                                       <div class="dish-img">
+                                          <!-- <a href="#" class="saffola-link"><img src="/assets/image_saffola.png"></a> -->
+                                          <div class="dish-image-anchor">
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" class="modal-popup" data-link="/store_items/3809194?daily_menu_page=true">
+                                             <label class='dish-label'><span>Made in Fortune Vivo Diabetes Care Oil</span></label>
+                                             <span class="dish-addToCart"></span>
+                                             <span class="dish-rating"><i class="icon icon-star"></i>4.3</span>
+                                             <img alt="Mix veg korma %281%29" class="food-item-placeholder-image-url" src="{% static "/markatix/images/Mix-Veg-Korma-(1).jpg"%}" />
+                                             </a>
+                                          </div>
+                                          <i class="icon icon-veg">
+                                          <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                          </i>
+                                       </div>
+                                       <div class="dish-description">
+                                          <p>
+                                             <a href="#" data-toggle="modal" data-target="#QickViewModal" data-link="/store_items/3809194?daily_menu_page=true" title="Mix Veg Korma">Mix Veg Korma</a>
+                                          </p>
+                                          <span class="dish-tag">
+                                          <span class='dish-taste-content'>Creamy</span>
+                                          </span>
+                                          <div class="dish-price">
+                                             <!-- getting dish price html -->
+                                             <span class='pull-left'>
+                                                <span class='act_price'>
+                                                   <!-- <i class='icon icon-rupee act_price'></i> -->&#8377 100
+                                                </span>
+                                                <span class='vat_plus'></span>
+                                             </span>
+                                             <div class="dish-add-remove">
+                                                <button class="btn btn-default btn-white rmv-btn" data-available-quantity="7" data-chef-name="Chef Kailash Sawant" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Mix Veg Korma" data-flavour-id="6" data-food-type="veg" data-item-id="3809194" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="5" data-prebook-order-date="2016-12-15" data-price="100.0" data-rating="3.75" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">-</button>
+                                                <span class="addet_item_cart"></span>
+                                                <button class="btn btn-default btn-orange add-btn menu-item" data-available-quantity="7" data-chef-name="Chef Kailash Sawant" data-clubable-with-meal-type-data="null" data-clubable-with-meal-types-present="false" data-course="Cooked in Fortune Vivo diabetic oil care" data-cuisine="[]" data-dish-name="Mix Veg Korma" data-flavour-id="6" data-food-type="veg" data-item-id="3809194" data-item-meal-type-id="8" data-meal-type-id="8" data-meal-type="All-Day-Menu" data-min-prebook-hrs-present="false" data-min-prebook-hrs="null" data-order-date="2016-12-15" data-orderable-quantity="5" data-prebook-order-date="2016-12-15" data-price="100.0" data-rating="3.75" data-restricted-quantity-item="false" data-restricted-quantity="0" data-tags="[]" data-user-id="" data-user-wallet-balance="null" name="button" type="submit">+&nbsp;&nbsp;Add</button>
+                                             </div>
+                                          </div>
+                                          <div class="dish-chef">
+                                             <div class="dish-chef-img">
+                                                <!-- <a href="#"> -->
+                                                <!--% if menu_item.second_chef %-->
+                                                <!-- <a href="#"><img alt="1 %2811%29" class="lazy" src="images/2_(5).jpg" /></a> -->
+                                                </a>
+                                             </div>
+                                             <div class="dish-chef-detail">
+                                                <!-- <span class="chef-name"><a class="chefNameLink" href="#">Chef Kailash Sawant</a></span>
+                                                   <span class="chef-tag">Hola MasterChef</span> -->
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <!-- Show tile of tile items -->
+                                    -
+                                    <script type="text/javascript">
+                                       $(".wishlist-btn").on("click", function(event){
+                                         valid($(this));
+                                         hideErrormsg();
+                                         removeErrormsg();
+                                         return false;
+                                       });
+                                    </script>
+                                 </div>
+                                 <script type="text/javascript">
+                                    $(document).ready(function(){
+                                      HolachefUtil.onload_quantity_in_cart();
+                                      notify_me(0)
+                                      validation()
+                                    })
+                                 </script>
+                              </div>
+                              <div class="tab-pane fade in " id="lunch" role="tabpanel">
+                              </div>
+                              <div class="tab-pane fade in " id="flavours" role="tabpanel">
+                              </div>
+                              <div class="tab-pane fade in " id="dinner" role="tabpanel">
+                              </div>
+                              <div class="tab-pane fade in " id="cakes_indian_sweets" role="tabpanel">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-lg-12 disclaimer">
+                              <em>&#42;Disclaimer : img on the site are for illustration purposes only. All listed prices are subject to change without prior notice.</em>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <div class="location-holder">
+                     <a href="#" data-toggle="modal" class="changeLocation">
+                     <i class="icon icon-location"></i>
+                     <span class="mobile-pincode">Powai : 400076</span>
+                     </a>
+                  </div>
+               </main>
+               <!-- Script to mange app installer sticky on mobile browser -->
+               <script type="text/javascript">
+                  $(document).ready(function(){
+                    if(HolaPlatformJs.platforms.isMobile()){
+                      HolaPlatformJs.platforms.installApplicationStickyController();
+                    }
+                  });
+               </script>
+               <!--
+                  -->
+               <div class="sticky-footer"></div>
+            </div>
+
+            <script type="text/javascript">
+               adroll_adv_id = "N3DBGL3H2NG7BNUD6T6T6V";
+               adroll_pix_id = "A7OR2QKKMFHXPD5JRKSM7D";
+               /* OPTIONAL: provide email to improve user identification */
+               adroll_email = "";
+                 (function () {
+                   var _onload = function(){
+                     if (document.readyState && !/loaded|complete/.test(document.readyState)){setTimeout(_onload, 10);return}
+                     if (!window.__adroll_loaded){__adroll_loaded=true;setTimeout(_onload, 50);return}
+                       var scr = document.createElement("script");
+                       var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+                       scr.setAttribute('async', 'true');
+                       scr.type = "text/javascript";
+                       scr.src = host + "/j/roundtrip.js";
+                       ((document.getElementsByTagName('head') || [null])[0] ||
+                         document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+                   };
+                     if (window.addEventListener) {window.addEventListener('load', _onload, false);}
+                     else {window.attachEvent('onload', _onload)}
+                 }());
+            </script>
+         </div>
+{% endblock content %}

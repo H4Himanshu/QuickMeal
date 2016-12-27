@@ -1,0 +1,24 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+{% load debug_tags %}
+
+{% block navigation %}
+    {% include "partials/nav_primary.html" with expand_dropdown=1 %}
+{% endblock %}
+
+{% block extrascripts %}
+{% endblock %}
+
+{% block header %}
+  <form action="/" method="get">
+    {% csrf_token %}
+    <input type="hidden" name="city_id" value="1">
+    <input type="submit" value="Start" class="btn btn-primary">
+  </form>
+{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+{% load debug_tags %}
+
+{% block navigation %}
+    {% include "partials/nav_primary.html" with expand_dropdown=1 %}
+{% endblock %}
+
+{% block extrascripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+    $('#bonus').change(function() {
+    alert($("#bonus option:selected").val());
+    var city_id=$("#bonus option:selected").val();
+    $('#id').text(city_id);
+  });  
+});
+</script>
+{% endblock %}
+
+{% block header %}
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+		<select id="bonus">
+			{% for city in location_cities %}
+				<option value={{city.id}}>{{ city.city }}</option>
+			{% endfor %}	
+		</select>
+		{% set_trace %}
+		<select>		
+			{% for location in city_wise_location.city_id %}
+				<option href="#">{{ location.location }}</option>
+			{% endfor %}		
+		</select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+{% endblock content %}

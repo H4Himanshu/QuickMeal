@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="78px" height="78px" viewBox="0 0 78 78" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>B6F90832-39C8-4DE5-8964-D5FEFED4078B</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <circle id="path-1" cx="36" cy="36" r="36"></circle>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.474581069 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Final" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="top-to-back" transform="translate(-1170.000000, -920.000000)">
+            <g id="back-to-top" transform="translate(1173.000000, 922.000000)">
+                <g id="Oval-246">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FA4A54" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <path d="M31,23 L41.959311,33.959311 C42.3528457,34.3528457 42.3596743,34.9840629 41.959311,35.3844263 L31,46.3437373" id="Rectangle-2496-Copy-3" stroke="#FEFEFE" stroke-width="4.5" stroke-linecap="round" transform="translate(36.628514, 34.671869) rotate(-91.000000) translate(-36.628514, -34.671869) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

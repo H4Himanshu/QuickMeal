@@ -1,0 +1,1 @@
+var img1 = new Image(1,1);img1.src = 'https://cm.g.doubleclick.net/pixel?google_nid=sodel_solutions_new&google_cm&google_ula=274421469&google_hm=Q3ZDRTBWZ1dPYlZ4b1FrL2tWeXVBZw%3D%3D';
